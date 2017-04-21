@@ -1,0 +1,43 @@
+{% extends 'Teacher/base_visitor.html' %}
+{% block title %}Login{% endblock %}
+{% block login_active %}active{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h2>Login</h2></div>
+            <div class="panel-body">
+                {% if error_message %}
+                    <div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>{{ error_message }}</strong>
+                    </div>
+                {% endif %}
+                <form class="form-horizontal" role="form" action="{% url 'Teacher:user_login'%}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="control-label col-md-5" for="username">Username:</label>
+                        <div class="col-md-6">
+                            <input id="username" maxlength="30" name="username" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-5" for="password">Password:</label>
+                        <div class="col-md-6">
+                            <input id="password" maxlength="30" name="password" type="password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="text-center">
+                    <p>Don't have an account? Click "Create Account" above to get started.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

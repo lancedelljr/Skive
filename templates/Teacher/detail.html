@@ -1,0 +1,81 @@
+{% extends 'Teacher/base.html' %}
+{% block title %}{{ course }}{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>{{ course.department }}-{{ course.course_number }}-{{ course.section }} {{ course.title }}</h2>
+            <h3>{{ course.semester }} {{ course.year }}</h3>
+            <h3>{{ course.days }} {{ course.time }}</h3>
+        </div>
+        <div class="panel-body">
+            {% if error_message %}
+                <div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>{{ error_message }}</strong>
+                </div>
+            {% endif %}
+            {% if delete_message %}
+                <div class="alert alert-success">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>{{ delete_message }}</strong>
+                </div>
+            {% endif %}
+            <div class="table-responsive">
+            <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Absences</th>
+                <th>Edit Absences</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% if course.student_set.all %}
+                    {% for student in course.student_set.all %}
+                    <tr>
+                        <td>{{ student.student_name }}</td>
+                        <td>{{ student.absences }}</td>
+                        <td>
+                            <form action="{% url 'Teacher:add_absence' course.id student.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="student_id" value="{{ student.id }}" />
+                                <button type="submit" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Add Absence">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </form>
+                            <form action="{% url 'Teacher:sub_absence' course.id student.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="student_id" value="{{ student.id }}" />
+                                <button type="submit" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Subtract Absence">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                           <form action="{% url 'Teacher:delete_student' course.id student.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="student_id" value="{{ student.id }}" />
+                                <button type="submit" class="btn btn-danger btn-xs"
+                                        onclick="return confirm('Are you sure you want to delete this student?')">
+                                    <span class="glyphicon glyphicon-trash"></span>&nbsp; Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>Click 'Add Student' below to add a student</strong>
+                    </div>
+                {% endif %}
+            </tbody>
+            </table>
+            </div>
+            <a href="{% url 'Teacher:create_student' course.id %}" class="btn btn-primary">Add Student</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

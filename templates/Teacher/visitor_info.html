@@ -1,0 +1,41 @@
+{% extends 'Teacher/base_visitor.html' %}
+{% block content %}
+<div class="jumbotron text-center">
+    <h1><strong>Skive: Attendance Tracker</strong></h1>
+    <p>Make keeping track of student absences much easier</p>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3>Create an Account</h3></div>
+                <div class="panel-body">
+                    <p>Use the "Create Account" button above to create an account</p>
+                    <p>Or if you already have an account use the "Login" button to login</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3>Create/Delete Courses and Students</h3></div>
+                <div class="panel-body">
+                    <p>Once you have an account, you can: </p>
+                    <p>1. Create courses</p>
+                    <p>2. Create students for each course</p>
+                    <p>3. Delete courses or students</p>
+                    <p><strong>But be warned!</strong> If a course is deleted, all students in the course will also be deleted</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3>Edit Student Absences</h3></div>
+                <div class="panel-body">
+                    <p>After you login, choose a course and update the number of absences of any students</p>
+                    <p>Absences can be incremented or decremented in case of an error</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

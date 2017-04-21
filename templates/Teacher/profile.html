@@ -1,0 +1,33 @@
+{% extends 'Teacher/base.html' %}
+{% block profile_active %}active{% endblock %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h2>{{ user.username }}'s Profile</h2></div>
+        <div class="panel-body">
+        <div class="table-responsive">
+         <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Number of Courses</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ courses_count }}</td>
+                </tr>
+                </tbody>
+         </table>
+        </div>
+            <a href="{% url 'Teacher:change_password' %}" class="btn btn-primary">Change Password</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
