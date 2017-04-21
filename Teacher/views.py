@@ -10,6 +10,7 @@ def visitor_info(request):
     return render(request, 'Teacher/visitor_info.html')
 
 
+# returns info.html for authenticated users
 def info(request):
     return render(request, 'Teacher/info.html')
 
