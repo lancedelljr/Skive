@@ -66,11 +66,11 @@ WSGI_APPLICATION = 'Skive.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dcqc94dfg7kt81',
-        'USER': 'ovjmkxjafzcoyi',
-        'PASSWORD': 'ef96837a08e97ec6f12704949af8e387ef089e3d8472985a98b56163adda0523',
-        'HOST': 'ec2-54-243-185-132.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -117,5 +117,5 @@ STATIC_URL = '/static/'
 
 
 # unique to Heroku database connection to PostgreSQL
-# import dj_database_url
-# DATABASES['default'] = dj_database_url.config()
+import dj_database_url
+DATABASES['default'] = dj_database_url.config()
