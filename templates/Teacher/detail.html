@@ -26,6 +26,7 @@
             <thead>
             <tr>
                 <th>Name</th>
+                <th>Email</th>
                 <th>Absences</th>
                 <th>Edit Absences</th>
                 <th></th>
@@ -36,6 +37,7 @@
                     {% for student in course.student_set.all %}
                     <tr>
                         <td>{{ student.student_name }}</td>
+                        <td>{{ student.email }}</td>
                         <td>{{ student.absences }}</td>
                         <td>
                             <form action="{% url 'Teacher:add_absence' course.id student.id %}" method="post" style="display: inline;">
