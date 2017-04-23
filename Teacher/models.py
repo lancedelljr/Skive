@@ -1,24 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import Permission, User
-from django.db.models.signals import post_save
-
-
-account_choices = (('Teacher', 'Teacher'), ('Student', 'Student'))
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User)
-    account_type = models.CharField(max_length=10, choices=account_choices)
-
-
-User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
-
-
-def create_profile(sender, **kwargs):
-    if kwargs['created']:
-        user_profile = Profile.objects.create(user=kwargs['instance'])
-
-post_save.connect(create_profile, sender=User)
 
 
 class Course(models.Model):
@@ -40,6 +21,7 @@ class Course(models.Model):
 class Student(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     student_name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100, default='username@example.com')
     absences = models.PositiveIntegerField(default=0)
 
     def __str__(self):

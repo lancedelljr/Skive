@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import PasswordChangeForm
+from django.core.mail import send_mail
+from django.shortcuts import render, get_object_or_404
 from .forms import UserForm, CourseForm, StudentForm
 from .models import Course, Student
 
@@ -71,6 +73,17 @@ def create_student(request, course_id):
         student = form.save(commit=False)
         student.course = course
         student.save()
+
+        # send email confirmation email to student when they are added to the course
+        subject = 'Skive: Attendance Tracker'
+        message = 'Welcome ' + student.student_name + '!' + \
+            '\n\nYour professor has added you to ' + course.department + '-' + course.course_number + \
+            '-' + str(course.section) + ' ' + course.title + '.' + \
+            ' Now you will be notified each time an absence is added.\n\nSkive'
+        from_email = settings.EMAIL_HOST_USER
+        to_list = [student.email, settings.EMAIL_HOST_USER]
+        send_mail(subject, message, from_email, to_list, fail_silently=True)
+
         return render(request, 'Teacher/detail.html', {'course': course})
     context = {
         'course': course,
@@ -107,6 +120,18 @@ def add_absence(request, course_id, student_id):
     student = Student.objects.get(pk=student_id)
     student.absences += 1
     student.save()
+
+    # send student email to see total absences
+    subject = course.department + '-' + course.course_number + \
+        '-' + str(course.section) + ' ' + course.title + ' Absence Update'
+    message = student.student_name + ',' + \
+        '\n\nYour absences have been updated for ' + course.department + '-' + course.course_number + \
+        '-' + str(course.section) + ' ' + course.title + '.' + \
+        '\n\nTotal absences = ' + str(student.absences) + '\n\nSkive'
+    from_email = settings.EMAIL_HOST_USER
+    to_list = [student.email, settings.EMAIL_HOST_USER]
+    send_mail(subject, message, from_email, to_list, fail_silently=True)
+
     return render(request, 'Teacher/detail.html', {'course': course})
 
 
@@ -132,6 +157,15 @@ def create_account(request):
         password = form.cleaned_data['password']
         user.set_password(password)
         user.save()
+
+        # send confirmation email
+        subject = 'Skive: Attendance Tracker'
+        message = 'Welcome ' + user.first_name + '!' + \
+            '\n\nNow you can start creating courses, adding students, and editing absences.\n\nSkive'
+        from_email = settings.EMAIL_HOST_USER
+        to_list = [user.email, settings.EMAIL_HOST_USER]
+        send_mail(subject, message, from_email, to_list, fail_silently=True)
+
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
@@ -160,7 +194,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return render(request, 'Teacher/login.html')
+    return render(request, 'Teacher/visitor_info.html')
 
 
 def profile(request):
