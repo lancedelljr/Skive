@@ -4,8 +4,8 @@ from django.contrib.auth.models import Permission, User
 
 class Course(models.Model):
     user = models.ForeignKey(User, default=1)
-    department = models.CharField(max_length=3)
-    course_number = models.CharField(max_length=3)
+    department = models.CharField(max_length=5)
+    course_number = models.CharField(max_length=5)
     section = models.IntegerField(default=1)
     title = models.CharField(max_length=100)
     semester = models.CharField(max_length=50)
