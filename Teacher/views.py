@@ -194,7 +194,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return render(request, 'Teacher/visitor_info.html')
+    return render(request, 'Teacher/login.html')
 
 
 def profile(request):
