@@ -7,14 +7,14 @@ app_name = 'Teacher'
 
 urlpatterns = [
     
+    # skivetracker.herokuapp.com/
+    url(r'^$', views.visitor_info, name='visitor_info'),
+    
     # skivetracker.herokuapp.com/courses
     url(r'^courses/$', views.index, name='index'),
     
     # skivetracker.herokuapp.com/info
     url(r'^info/$', views.info, name='info'),
-    
-    # skivetracker.herokuapp.com/visitor_info
-    url(r'^visitor_info/$', views.visitor_info, name='visitor_info'),
     
     # skivetracker.herokuapp.com/create_account
     url(r'^create_account/$', views.create_account, name='create_account'),
