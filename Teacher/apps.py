@@ -1,3 +1,5 @@
+# configures the Teacher app
+
 from django.apps import AppConfig
 
 
