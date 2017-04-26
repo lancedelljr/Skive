@@ -17,7 +17,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
+    
+    # url for admin page
+    # skivetracker.herokuapp.com/admin
     url(r'^admin/', admin.site.urls, name='admin'),
-    url(r'^courses/', include('Teacher.urls')),
+    
+    # main project url pattern that includes the urls from the Teacher app
+    # skivetracker.herokuapp.com/
     url(r'^', include('Teacher.urls')),
 ]
