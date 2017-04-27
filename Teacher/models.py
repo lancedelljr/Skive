@@ -1,7 +1,10 @@
+# database schema
+
 from django.db import models
 from django.contrib.auth.models import Permission, User
 
 
+# Course table
 class Course(models.Model):
     user = models.ForeignKey(User, default=1)
     department = models.CharField(max_length=5)
@@ -18,6 +21,7 @@ class Course(models.Model):
                ' - ' + self.semester + ' ' + self.year + ' ' + self.days + ' ' + self.time
 
 
+# Student table
 class Student(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     student_name = models.CharField(max_length=100)
