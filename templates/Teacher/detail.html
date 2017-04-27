@@ -1,3 +1,4 @@
+<!-- template for displaying course details -->
 {% extends 'Teacher/base.html' %}
 {% block title %}{{ course }}{% endblock %}
 {% block content %}
@@ -9,18 +10,24 @@
             <h3>{{ course.days }} {{ course.time }}</h3>
         </div>
         <div class="panel-body">
+
+            <!-- displays an error message if one is passed from the view -->
             {% if error_message %}
                 <div class="alert alert-danger">
                     <a href="#" class="close" data-dismiss="alert">&times;</a>
                     <strong>{{ error_message }}</strong>
                 </div>
             {% endif %}
+
+            <!-- displays a confirmation message if a student is deleted -->
             {% if delete_message %}
                 <div class="alert alert-success">
                     <a href="#" class="close" data-dismiss="alert">&times;</a>
                     <strong>{{ delete_message }}</strong>
                 </div>
             {% endif %}
+
+            <!-- makes table responsive for mobile view -->
             <div class="table-responsive">
             <table class="table">
             <thead>
@@ -33,6 +40,8 @@
             </tr>
             </thead>
             <tbody>
+
+                <!-- if there are students in the course then their name, email, and number of absences are shown -->
                 {% if course.student_set.all %}
                     {% for student in course.student_set.all %}
                     <tr>
@@ -40,22 +49,35 @@
                         <td>{{ student.email }}</td>
                         <td>{{ student.absences }}</td>
                         <td>
+
+                            <!-- adds an absence to the student -->
                             <form action="{% url 'Teacher:add_absence' course.id student.id %}" method="post" style="display: inline;">
+
+                                <!-- prevents cross-site request forgery -->
                                 {% csrf_token %}
+
                                 <input type="hidden" name="student_id" value="{{ student.id }}" />
                                 <button type="submit" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Add Absence">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </button>
                             </form>
+
+                            <!-- subtracts an absence from the student -->
                             <form action="{% url 'Teacher:sub_absence' course.id student.id %}" method="post" style="display: inline;">
+
+                                <!-- prevents cross-site request forgery -->
                                 {% csrf_token %}
+
                                 <input type="hidden" name="student_id" value="{{ student.id }}" />
                                 <button type="submit" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Subtract Absence">
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </button>
                             </form>
+
                         </td>
                         <td>
+
+                            <!-- deletes the student -->
                            <form action="{% url 'Teacher:delete_student' course.id student.id %}" method="post" style="display: inline;">
                                 {% csrf_token %}
                                 <input type="hidden" name="student_id" value="{{ student.id }}" />
@@ -64,19 +86,26 @@
                                     <span class="glyphicon glyphicon-trash"></span>&nbsp; Delete
                                 </button>
                             </form>
+
                         </td>
                     </tr>
                     {% endfor %}
+
+                <!-- displays message if no students exist -->
                 {% else %}
                     <div class="alert alert-info">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
                         <strong>Click 'Add Student' below to add a student</strong>
                     </div>
                 {% endif %}
+
             </tbody>
             </table>
             </div>
+
+            <!-- button for adding a student to the course -->
             <a href="{% url 'Teacher:create_student' course.id %}" class="btn btn-primary">Add Student</a>
+
         </div>
     </div>
 </div>

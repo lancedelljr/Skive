@@ -1,3 +1,4 @@
+<!-- template for user profile page -->
 {% extends 'Teacher/base.html' %}
 {% block profile_active %}active{% endblock %}
 {% block title %}Skive | My Profile{% endblock %}
@@ -6,6 +7,8 @@
     <div class="panel panel-default">
         <div class="panel-heading"><h2>{{ user.username }}'s Profile</h2></div>
         <div class="panel-body">
+
+        <!-- makes table responsive for mobile view -->
         <div class="table-responsive">
          <table class="table">
                 <thead>
@@ -26,7 +29,10 @@
                 </tbody>
          </table>
         </div>
+
+            <!-- change password button -->
             <a href="{% url 'Teacher:change_password' %}" class="btn btn-primary">Change Password</a>
+
         </div>
     </div>
 </div>

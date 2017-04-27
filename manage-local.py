@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+# manager for local settings
+# !/usr/bin/env python
 import os
 import sys
 

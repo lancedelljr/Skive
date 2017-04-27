@@ -1,3 +1,4 @@
+<!-- template for user login -->
 {% extends 'Teacher/base_visitor.html' %}
 {% block title %}Skive | Login{% endblock %}
 {% block login_active %}active{% endblock %}
@@ -7,20 +8,30 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h2>Login</h2></div>
             <div class="panel-body">
+
+                <!-- displays an error message if one is passed from the view -->
                 {% if error_message %}
                     <div class="alert alert-danger">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
                         <strong>{{ error_message }}</strong>
                     </div>
                 {% endif %}
+
+                <!-- login form -->
                 <form class="form-horizontal" role="form" action="{% url 'Teacher:user_login'%}" method="post" enctype="multipart/form-data">
+
+                    <!-- prevents cross-site request forgery -->
                     {% csrf_token %}
+
+                    <!-- username -->
                     <div class="form-group">
                         <label class="control-label col-md-5" for="username">Username:</label>
                         <div class="col-md-6">
                             <input id="username" maxlength="30" name="username" type="text">
                         </div>
                     </div>
+
+                    <!-- password -->
                     <div class="form-group">
                         <label class="control-label col-md-5" for="password">Password:</label>
                         <div class="col-md-6">
@@ -33,6 +44,7 @@
                         </div>
                     </div>
                 </form>
+
                 <div class="text-center">
                     <p>Don't have an account? Click "Create Account" above to get started.</p>
                 </div>

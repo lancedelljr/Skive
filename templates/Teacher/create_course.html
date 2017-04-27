@@ -1,3 +1,4 @@
+<!-- template for adding a new course -->
 {% extends 'Teacher/base.html' %}
 {% block title %}Skive | Add Course{% endblock %}
 {% block add_course_active %}active{% endblock %}
@@ -6,14 +7,22 @@
     <div class="panel panel-default">
         <div class="panel-heading"><h2>Add a New Course</h2></div>
         <div class="panel-body">
+
+            <!-- displays an error message if one is passed from the view -->
             {% if error_message %}
                 <div class="alert alert-danger">
                     <a href="#" class="close" data-dismiss="alert">&times;</a>
                     <strong>{{ error_message }}</strong>
                 </div>
             {% endif %}
+
+            <!-- course form -->
             <form class="form-horizontal" method="post">
+
+                <!-- prevents cross-site request forgery -->
                 {% csrf_token %}
+
+                <!-- uses the form template for displaying forms -->
                 {% include 'Teacher/form-template.html' %}
                 <div class="form-group">
                     <div class="text-center">
@@ -21,6 +30,8 @@
                     </div>
                 </div>
             </form>
+
+            <!-- cancel button that sends user back to their courses -->
             <div class="text-center">
                 <a class="btn btn-danger" href="{% url 'Teacher:index' %}">Cancel</a>
             </div>

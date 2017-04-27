@@ -1,3 +1,4 @@
+<!-- template for creating a new account -->
 {% extends 'Teacher/base_visitor.html' %}
 {% block title %}Skive | Create Account{% endblock %}
 {% block  create_active%}active{% endblock %}
@@ -7,8 +8,14 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h2>Create a New Account</h2></div>
             <div class="panel-body">
+
+                <!-- create account form -->
                 <form class="form-horizontal" method="post">
+
+                    <!-- prevents cross-site request forgery -->
                     {% csrf_token %}
+
+                    <!-- uses the form template for displaying forms -->
                     {% include 'Teacher/form-template.html' %}
                     <div class="form-group">
                         <div class="text-center">
@@ -16,6 +23,7 @@
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
