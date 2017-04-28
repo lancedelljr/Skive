@@ -88,6 +88,3 @@ ENV/
 .ropeproject
 /Skive/settings/local.py
 /Skive/settings/email_info.py
-.idea/workspace.xml
-Teacher/migrations/0002_student_email.py
-Teacher/migrations/0003_auto_20170425_1619.py
